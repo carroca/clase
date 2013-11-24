@@ -1,0 +1,28 @@
+<html>
+  <head>
+    <title>Prueba Provincias</title>
+  </head>
+  
+  <body>
+    <script>
+	  escudo = getParameterByName("imagen");
+	  alert("llama funcion");
+	  function getParameterByName(name) {
+        name = name.replace(/[\[]/, "\\\[").replace(/[\]]/, "\\\]");
+        var regex = new RegExp("[\\?&]" + name + "=([^&#]*)"),
+        results = regex.exec(location.search);
+        return results == null ? "" : decodeURIComponent(results[1].replace(/\+/g, " "));
+      }
+	  
+	  if(!escudo) {
+	    window.location.assign("index.html");
+	  } else {
+	    mostrarEscudo();
+	  }
+	  
+	  function mostrarEscudo(){
+	    document.write("<img id='img' src='"+escudo+"'>");
+	  }
+	</script>
+  </body>
+</html>

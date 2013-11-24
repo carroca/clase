@@ -1,0 +1,23 @@
+<html>
+  <head>
+    <title>Prueba Provincias</title>
+    
+	<script language="javascript" src="libCookies.js"></script>
+  </head>
+  
+  <body>
+    <script>
+	  escudo = consultarCookie("imagen");
+	  
+	  if(!escudo) {
+	    window.location.assign("index.html");
+	  } else {
+	    mostrarEscudo();
+	  }
+	  
+	  function mostrarEscudo(){
+	    document.write("<img id='img' src='"+escudo+"'>");
+	  }
+	</script>
+  </body>
+</html>

@@ -1,0 +1,41 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>Documento sin título</title>
+  </head>
+
+  <body>
+    <img id="foto" src="img/n1.gif" />
+    <p><span id="hora"></span>:<span id="minuto"></span>:<span id="segundo"></span></p>
+    <script>
+
+      iReloj=setInterval("Numeros()",500);
+      imgfoto=document.getElementById("foto");
+	  
+	  iHora=document.getElementById("hora");
+	  iMinuto=document.getElementById("minuto");
+	  iSegundo=document.getElementById("segundo");
+	  
+      var inum=2;
+	  var d = new Date();
+
+      function Numeros() {
+        imgfoto.src="img/n"+inum+".gif";
+        inum++;
+        if(inum>9) {
+          inum=1;
+        }
+		
+		iHora.innerHTML = d.getHours();
+	    iMinuto.innerHTML = d.getMinutes();
+	    iSegundo.innerHTML = d.getSeconds();
+      }
+
+      function Parar() {
+        int=window.clearInterval(iReloj);
+      }
+    </script>
+    <button onclick="Parar();">Parar</button>
+  </body>
+</html>

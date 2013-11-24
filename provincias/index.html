@@ -1,0 +1,32 @@
+<html>
+  <head>
+    <title>Prueba Provincias</title>
+    <script language="javascript" src="provincias.js"></script>
+	<script language="javascript" src="libCookies.js"></script>
+  </head>
+
+  <body>
+    <script>
+	  document.write("<select onchange='mostrarImg(this.value);' >");
+	  
+	  for(x = 0; x < provincias.length; x++){
+	    document.write("<option value='"+x+"'>" + provincias[x] + "</option>");
+	  }
+	  
+	  document.write("</select>");
+	  
+	  document.write("<img id='img' onclick='nuevaPagina();' src='img/0.jpg'>");
+	  
+	  function mostrarImg(x) {
+	    oImg = document.getElementById("img");
+		oImg.src = "img/"+x+".jpg";
+	  }
+	  
+	  function nuevaPagina() {
+	    oImg = document.getElementById("img");
+		Grabar("imagen",oImg.src);
+		window.location.assign("verescudo.html");
+      }
+	</script>
+  </body>
+</html>

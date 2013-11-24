@@ -1,0 +1,66 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<script type="text/javascript" src="js/libCookies.js/">
+</script>
+<title>Identificacion de la web</title>
+</head>
+
+<body>
+<p>Identificacion de la web</p>
+<p>Nombre:
+  <input type="text" id="nombre" /><br />
+  DNI: <input id="dni" type="text" maxlength="9" />
+</p>
+<p>
+  <label for="select"></label>
+  <select name="select" id="dMenu" value="ninguno">
+    <option value="0">Guipuzkoa</option>
+    <option value="1">Araba</option>
+    <option value="2">Bizkaia</option>
+  </select>
+  <br />
+  Email: <input name="email" type="text" id="email" />
+</p>
+<p>
+  <input type="radio" id="0"  name="estado" value="0" /> Casado<br />
+  <input type="radio" id="1" name="estado" value="1" /> Viudo<br />
+  <input type="radio" id="2" name="estado" value="2" /> Divorciado
+</p>
+<p>
+  <input type="submit" id="boton" value="Enviar" onclick="validar()" />
+</p>
+<script>
+  function validar() {
+	var oNombre = document.getElementById("nombre");
+	sDicc = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
+	
+	//Comprobar nombre
+    if(oNombre.value == "undefined" || oNombre.value === null || oNombre.value == "") {
+	  alert("Errores en el formulario");
+	  return;
+	} 
+	
+	//Comprobar dni
+	var oDni = document.getElementById("dni");
+	//sDicc.indexOf(valor.charAt(8)) != -1
+	if(oDni.value.length != 9 || sDicc.indexOf(oDni.value.charAt(8)) == -1) {
+	  
+	}
+	
+	//Comprobar el DNI
+	var oEmail = document.getElementById("email");
+	if(oEmail.value.search(["@"]) == -1) {
+	  alert("Errores en el formulario");
+	  return;
+	}
+
+	alert(oEmail.value);
+	alert(oDni.value)
+	alert(oNombre.value);
+	return;
+  }
+</script>
+</body>
+</html>

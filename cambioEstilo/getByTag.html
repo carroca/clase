@@ -1,0 +1,48 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>Documento sin título</title>
+
+<style>
+p {
+  font-size: 20px;	
+}
+</style>
+
+</head>
+
+<body>
+  <p style=" font-size:12px; ">Parrafo 1</p>
+  <p style=" font-size:12px; ">Parrafo 2</p>
+  <p style=" font-size:12px; ">Parrafo 3</p>
+  <p style=" font-size:12px; ">Parrafo 4</p>
+  <input type="button" value="+" onclick="aumentar(0);"/>
+  <input type="button" value="-" onclick="aumentar(1);"/>
+  
+  <script>
+
+    function aumentar(x) {
+		if(x == 0){
+			
+		  //tamano = tamano + eval(2);
+		  oEtiP = document.getElementsByTagName("p");
+		  tamano = oEtiP.item(0).style.fontSize.substr(0, oEtiP.item(0).style.fontSize.length - 2);
+		  tamano = parseInt(tamano);
+		  for (x = 0; x < oEtiP.length; x++){
+			  oEtiP.item(x).style.fontSize = tamano + eval(2) + "px";
+		  }
+		  
+		} else if (x == 1){
+		  //tamano = tamano + eval(2);
+		  oEtiP = document.getElementsByTagName("p");
+		  tamano = oEtiP.item(0).style.fontSize.substr(0, oEtiP.item(0).style.fontSize.length - 2);
+		  tamano = parseInt(tamano);
+		  for (x = 0; x < oEtiP.length; x++){
+			  oEtiP.item(x).style.fontSize = (tamano - 2) + "px";
+		  }
+		}
+	}
+  </script>
+</body>
+</html>

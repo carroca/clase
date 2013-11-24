@@ -1,0 +1,53 @@
+<html>
+	<head>
+    	<title>
+        </title>
+        <script language="javascript" src="preguntas.js"></script>
+    </head>
+    <body>
+    <script> 
+	  for(x = 0; x < Preguntas.length; x++)
+	  {
+		  
+	    document.write("<p value='"+x+"'>" + Preguntas[x] + " <input id='"+x+"' name='' type='checkbox' value=''</p>");
+		
+	  }
+	  
+	  document.write("<p><input onclick='Grabar();' name='boton' value='Validar' type='button' /></p>");
+	  
+	  function Grabar(snombre,scontenido){
+		  var srespuestas="";
+		  var scorrectas="";
+		  for(i=0;i<Preguntas.length;i++)
+		  {
+			  var orespuesta=document.getElementById(i);
+			  if(orespuesta.checked)
+			  {
+				  srespuestas+="v";
+			  }
+			  else
+			  {
+				  srespuestas+="f";
+			  }
+			  if(Respuestas[i])
+			  {
+				  scorrectas+="v";
+			  }
+			  else
+			  {
+				  scorrectas+="f";
+			  }
+		  }
+		  dCaduca=new Date();
+		dCaduca.setDate(dCaduca.getDate()+5);
+		mandarCookie("respuestas",srespuestas,dCaduca);
+		mandarCookie("correctas",scorrectas,dCaduca);
+	}
+	function mandarCookie(nombre, valor, caducidad) {
+	  document.cookie = nombre + "=" + escape(valor)
+    	+ ((caducidad == null) ? "" : ("; expires=" + caducidad.toGMTString()))
+		window.location='Soluciones.html';
+	} 
+	</script>
+    </body>
+</html>
