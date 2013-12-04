@@ -28,6 +28,47 @@ class dbConect {
 	$this->open();
 	
   }
+
+  //Ejecuta una sentencia SELECT basandose en los campos dados a los atributos
+  public function exeSelect(){
+    $query = "";
+    return;
+  }
+
+  public function exeDelete(){
+    if(isset($this->tables) && isset($this->condition)){
+	  $query = "DELETE FROM " . $this->tables . " WHERE " . $this->condition;
+	  if(mysql_query($query)) {
+	    unset($this->tables);
+		unset($this->condition);
+	    return 1;
+	  } else {
+	    unset($this->tables);
+		unset($this->condition);
+	    return 0;
+	  }
+	} else {
+      return 0;
+	}
+  }
+  
+  public function exeInsert(){
+    $query = "";
+    return;
+  }
+  
+  public function exeUpdate(){
+    $query = "";
+    return;
+  }
+  
+  //Las siguientes funciones establecen los atributos para las consultas.
+  public function setFields($this->fields){}
+  public function setTables($this->tables){}
+  public function setCondition($this->condition){}
+  public function setOrderby($this->orderby){}
+  public function setLimit($this->limit){}
+  public function setValues($this->values){}
   
   //Crea la conexion con la base de datos
   private function open(){
@@ -40,27 +81,6 @@ class dbConect {
   //Cierra la conexion con la base de datos
   public function close(){
     mysql_close($this->con);
-  }
-  
-  //Ejecuta una sentencia SELECT basandose en los campos dados a los atributos
-  public function exeSelect(){
-    $query = "";
-    return;
-  }
-  
-  public function exeDelete(){
-    $query = "";
-    return;
-  }
-  
-  public function exeInsert(){
-    $query = "";
-    return;
-  }
-  
-  public function exeUpdate(){
-    $query = "";
-    return;
   }
 }
 
