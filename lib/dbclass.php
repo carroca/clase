@@ -1,4 +1,40 @@
 <?php
+/*
+* @file Contiene una clase que permite interactuar con la base de datos 
+*  realizando consultas, borrados, actualizaciones y añadir registros.
+*
+* Atributes:
+* - $host: Almacena el host donde se aloja la base de datos, string
+* - $user: Almacena el usuario de acceso a la base de datos, string
+* - $pass: Almacena la contraseña del usuario de la base de datos, string
+* - $db: Almacena el nombre de la base de datos, string
+* - $con: Contiene una funcion para realizar la conexion a la base de datos, string
+* - $fields: Almacena los campos para las consultas o para los insert, string
+* - $tables: Almacena las tablas con las que interactuar, string
+* - $condition: Almacena las condiciones para la condicion where en el sql, string
+* - $orderby: El orden a utilizar en una consulta, string
+* - $limit: El limite de registros a obtener en una consulta, string
+* - $values: Valores que se van a insertar en la base de datos en un insert, string
+*
+* Avaliable functions
+* - setFields(String): Añade un valor a el atributo fields
+* - setTables(String): Añade un valor a el atributo tables
+* - setCondition(String): Añade un valor a el atributo condition
+* - setOrderby(String): Añade un valor a el atributo orderby
+* - setLimit(String): Añade un valor a el atributo limit
+* - setValues(String): Añade un valor a el atributo values
+* - exeSelect(): Ejecuta una consulta select, los atributos fields y tables son obligatorios, 
+*     condition, ordeby y limit son campos opcionales, 
+*	  devuelve 0 en caso de error y 1 en caso de existo
+* - exeDelete(): Ejecuta un delete, los atributos tables y condition son obligatorios, 
+*     devuelve 0 en caso de error y 1 en caso de existo
+* - exeInsert(): Ejecuta un insert, los campos tables y values son obligatorios,
+*     fields es un atributo opcional,
+*     devuelve 0 en caso de error y 1 en caso de existo
+* - exeUpdate(): Ejecuta un update en una tabla, tables, condition y fields son obligatorios,
+*     devuelve 0 en caso de error y 1 en caso de existo
+*
+*/
 
 class dbColection {
 
@@ -17,6 +53,9 @@ class dbColection {
   private $limit;
   private $values;
 
+  /**
+  * Implements __construct().
+  */
   public function __construct() {
 
     include_once('./config.php');
@@ -28,12 +67,11 @@ class dbColection {
 	$this->open();
   }
 
-  //Ejecuta una sentencia SELECT basandose en los campos dados a los atributos
+  /**
+  * Implements exeSelect().
+  */
   public function exeSelect(){
-    /*
-	* Aqui ira el codigo de toda la sentencia insert
-	*/
-	
+
 	if(isset($this->tables) && isset($this->fields)){
 	  $query = "SELECT ". $this-fields ." FROM ". $this->tables ."";
 	  
@@ -96,7 +134,9 @@ class dbColection {
 	  }
   }
 
-  //Ejecuta una sentencia delete
+  /**
+  * Implements exeDelete().
+  */
   public function exeDelete(){
     if(isset($this->tables) && isset($this->condition)){
 	  $query = "DELETE FROM " . $this->tables . " WHERE " . $this->condition;
@@ -114,7 +154,9 @@ class dbColection {
 	}
   }
   
-  //Ejecuta una sentencia insert con los campos que se le han proporcionado
+  /**
+  * Implements exeInsert().
+  */
   public function exeInsert(){
 
 	if(isset($this->tables) && isset($this->values)){
@@ -140,6 +182,9 @@ class dbColection {
 	}
   }
   
+  /**
+  * Implements exeUpdate().
+  */
   public function exeUpdate(){
     if(isset($this->tables) && isset($this->condition) && isset($this->fields)){
 	  $query = "UPDATE " . $this->tables . " SET ". $this->fields ." WHERE " . $this->condition ."";
@@ -159,7 +204,9 @@ class dbColection {
 	}
   }
   
-  //Las siguientes funciones establecen los atributos para las consultas.
+  /**
+  * Implements setFunctions().
+  */
   public function setFields($this->fields){}
   public function setTables($this->tables){}
   public function setCondition($this->condition){}
