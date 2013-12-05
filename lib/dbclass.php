@@ -8,7 +8,7 @@
 * - $user: Almacena el usuario de acceso a la base de datos, string
 * - $pass: Almacena la contraseña del usuario de la base de datos, string
 * - $db: Almacena el nombre de la base de datos, string
-* - $con: Contiene una funcion para realizar la conexion a la base de datos, string
+* - $conect: Contiene una funcion para realizar la conexion a la base de datos, string
 * - $fields: Almacena los campos para las consultas o para los insert, string
 * - $tables: Almacena las tablas con las que interactuar, string
 * - $condition: Almacena las condiciones para la condicion where en el sql, string
@@ -25,14 +25,14 @@
 * - setValues(String): Añade un valor a el atributo values
 * - exeSelect(): Ejecuta una consulta select, los atributos fields y tables son obligatorios, 
 *     condition, ordeby y limit son campos opcionales, 
-*	  devuelve 0 en caso de error y 1 en caso de existo
+*	  devuelve 0 en caso de error y en caso de exito un array
 * - exeDelete(): Ejecuta un delete, los atributos tables y condition son obligatorios, 
-*     devuelve 0 en caso de error y 1 en caso de existo
+*     devuelve 0 en caso de error y 1 en caso de exito
 * - exeInsert(): Ejecuta un insert, los campos tables y values son obligatorios,
 *     fields es un atributo opcional,
-*     devuelve 0 en caso de error y 1 en caso de existo
+*     devuelve 0 en caso de error y 1 en caso de exito
 * - exeUpdate(): Ejecuta un update en una tabla, tables, condition y fields son obligatorios,
-*     devuelve 0 en caso de error y 1 en caso de existo
+*     devuelve 0 en caso de error y 1 en caso de exito
 *
 */
 
@@ -43,7 +43,7 @@ class dbColection {
   private $user;
   private $pass;
   private $db;
-  private $con;
+  private $conect;
 
   //Atributos para las sentencias sql
   private $fields;
@@ -63,7 +63,6 @@ class dbColection {
 	$this->user = USER;
 	$this->pass = PASS;
 	$this->db = DB;
-	$this->con = mysql_connect($this->host, $this->user, $this->pass);
 	$this->open();
   }
 
@@ -73,43 +72,43 @@ class dbColection {
   public function exeSelect(){
 
 	if(isset($this->tables) && isset($this->fields)){
-	  $query = "SELECT ". $this-fields ." FROM ". $this->tables ."";
-	  
-	  if(isset($this->condition) && isset($this->orderby) && isset($this->limit) ){
-	    $query = "SELECT ". $this-fields ." FROM ". $this->tables . " WHERE ". $this->condition ." ORDER BY ". $this->orderby ." LIMIT ". $this->limit ."";
-	  }
-	  
-	  if(isset($this->limit) && isset($this->orderby) ){
-	    $query = "SELECT ". $this-fields ." FROM ". $this->tables ." ORDER BY ". $this->orderby ." LIMIT ". $this->limit ."";
-	  }
-	  
-	  if(isset($this->limit) && isset($this->condition)){
-	    $query = "SELECT ". $this-fields ." FROM ". $this->tables . " WHERE ". $this->condition ." LIMIT ". $this->limit ."";
-	  }
-	  
-	  if(isset($this->condition) && isset($this->orderby) ){
-	    $query = "SELECT ". $this-fields ." FROM ". $this->tables . " WHERE ". $this->condition ." ORDER BY ". $this->orderby ."";
-	  }
+	  $query = "SELECT ". $this->fields ." FROM ". $this->tables ."";
 	  
 	  if(isset($this->condition)){
-	    $query = "SELECT ". $this-fields ." FROM ". $this->tables ." WHERE ". $this->condition ."";
+	    $query = "SELECT ". $this->fields ." FROM ". $this->tables ." WHERE ". $this->condition ."";
 	  }
 	  
 	  if(isset($this->orderby)){
-	    $query = "SELECT ". $this-fields ." FROM ". $this->tables ." ORDER BY ". $this->orderby ."";
+	    $query = "SELECT ". $this->fields ." FROM ". $this->tables ." ORDER BY ". $this->orderby ."";
 	  }
 	  
 	  if(isset($this->limit)){
-	    $query = "SELECT ". $this-fields ." FROM ". $this->tables ." LIMIT ". $this->limit ."";
+	    $query = "SELECT ". $this->fields ." FROM ". $this->tables ." LIMIT ". $this->limit ."";
 	  }
-
-	  if(mysql_query($query)) {
+	  
+	  if(isset($this->limit) && isset($this->orderby) ){
+	    $query = "SELECT ". $this->fields ." FROM ". $this->tables ." ORDER BY ". $this->orderby ." LIMIT ". $this->limit ."";
+	  }
+	  
+	  if(isset($this->limit) && isset($this->condition)){
+	    $query = "SELECT ". $this->fields ." FROM ". $this->tables . " WHERE ". $this->condition ." LIMIT ". $this->limit ."";
+	  }
+	  
+	  if(isset($this->condition) && isset($this->orderby) ){
+	    $query = "SELECT ". $this->fields ." FROM ". $this->tables . " WHERE ". $this->condition ." ORDER BY ". $this->orderby ."";
+	  }
+	  
+	  if(isset($this->condition) && isset($this->orderby) && isset($this->limit) ){
+	    $query = "SELECT ". $this->fields ." FROM ". $this->tables . " WHERE ". $this->condition ." ORDER BY ". $this->orderby ." LIMIT ". $this->limit ."";
+	  }
+	  
+	  if($query = mysql_query($query)) {
 	    unset($this->tables);
 		unset($this->condition);
 		unset($this->fields);
 		unset($this->limit);
 		unset($this->orderby);
-	    return 1;
+	    return $query;
 	  } else {
 	    unset($this->tables);
 		unset($this->condition);
@@ -123,15 +122,7 @@ class dbColection {
 	  return 0;
 	}
 	
-	if(mysql_query($query)) {
-	    unset($this->tables);
-		unset($this->condition);
-	    return 1;
-	  } else {
-	    unset($this->tables);
-		unset($this->condition);
-	    return 0;
-	  }
+	
   }
 
   /**
@@ -139,18 +130,19 @@ class dbColection {
   */
   public function exeDelete(){
     if(isset($this->tables) && isset($this->condition)){
-	  $query = "DELETE FROM " . $this->tables . " WHERE " . $this->condition;
+	  $query = "DELETE FROM ". $this->tables ." WHERE " . $this->condition ."";
 	  if(mysql_query($query)) {
+	    
 	    unset($this->tables);
 		unset($this->condition);
-	    return 1;
+	    return true;
 	  } else {
 	    unset($this->tables);
 		unset($this->condition);
-	    return 0;
+	    return false;
 	  }
 	} else {
-      return 0;
+      return false;
 	}
   }
   
@@ -207,24 +199,37 @@ class dbColection {
   /**
   * Implements setFunctions().
   */
-  public function setFields($this->fields){}
-  public function setTables($this->tables){}
-  public function setCondition($this->condition){}
-  public function setOrderby($this->orderby){}
-  public function setLimit($this->limit){}
-  public function setValues($this->values){}
-  
+  public function setFields($n){
+    $this->fields = $n;
+  }
+  public function setTables($n){
+    $this->tables = $n;
+  }
+  public function setCondition($n){
+    $this->condition = $n;
+  }
+  public function setOrderby($n){
+    $this->orderby = $n;
+  }
+  public function setLimit($n){
+    $this->limit = $n;
+  }
+  public function setValues($n){
+    $this->values = $n;
+  }
+
   //Crea la conexion con la base de datos
   private function open(){
-    if (!$this->$con) {
+    $this->conect = mysql_connect($this->host, $this->user, $this->pass);
+    if(!$this->conect) {
       die('Could not connect: ' . mysql_error());
     }
-    mysql_select_db($this->db, $this->con);
+    mysql_select_db($this->db, $this->conect);
   }
 
   //Cierra la conexion con la base de datos
   public function close(){
-    mysql_close($this->con);
+    mysql_close($this->conect);
   }
 }
 
