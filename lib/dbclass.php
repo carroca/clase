@@ -15,6 +15,8 @@
 * - $orderby: El orden a utilizar en una consulta, string
 * - $limit: El limite de registros a obtener en una consulta, string
 * - $values: Valores que se van a insertar en la base de datos en un insert, string
+* - $groupby: Almacena el valor por el que agrupar en una select, string
+* - $having: Almacena el valor del having para el select, string
 *
 * Avaliable functions
 * - setFields(String): Añade un valor a el atributo fields
@@ -23,8 +25,10 @@
 * - setOrderby(String): Añade un valor a el atributo orderby
 * - setLimit(String): Añade un valor a el atributo limit
 * - setValues(String): Añade un valor a el atributo values
+* - setGroupBy(String): Añade un valor al atributo groupby
+* - setHaving(String): Añade un valor al atributo having
 * - exeSelect(): Ejecuta una consulta select, los atributos fields y tables son obligatorios, 
-*     condition, ordeby y limit son campos opcionales, 
+*     condition, ordeby, grupby, having y limit son campos opcionales, 
 *	  devuelve 0 en caso de error y en caso de exito un array
 * - exeDelete(): Ejecuta un delete, los atributos tables y condition son obligatorios, 
 *     devuelve 0 en caso de error y 1 en caso de exito
@@ -33,6 +37,7 @@
 *     devuelve 0 en caso de error y 1 en caso de exito
 * - exeUpdate(): Ejecuta un update en una tabla, tables, condition y fields son obligatorios,
 *     devuelve 0 en caso de error y 1 en caso de exito
+* - close(): Cierra la conexion con la base de datos.
 *
 */
 
@@ -52,6 +57,8 @@ class dbColection {
   private $orderby;
   private $limit;
   private $values;
+  private $groupby;
+  private $having;
 
   /**
   * Implements __construct().
@@ -72,34 +79,22 @@ class dbColection {
   public function exeSelect(){
 
 	if(isset($this->tables) && isset($this->fields)){
-	  $query = "SELECT ". $this->fields ." FROM ". $this->tables ."";
+	  $query = "SELECT ". $this->fields ." FROM ". $this->tables ." ";
 	  
 	  if(isset($this->condition)){
-	    $query = "SELECT ". $this->fields ." FROM ". $this->tables ." WHERE ". $this->condition ."";
+	    $query = $query."WHERE ". $this->condition ." ";
 	  }
-	  
 	  if(isset($this->orderby)){
-	    $query = "SELECT ". $this->fields ." FROM ". $this->tables ." ORDER BY ". $this->orderby ."";
+	    $query = $query."ORDER BY ". $this->orderby ." ";
 	  }
-	  
+	  if(isset($this->groupby)){
+	    $query = $query."HAVING ". $this->having ." ";
+	  }
+	  if(isset($this->groupby)){
+	    $query = $query."GROUP BY ". $this->groupby ." ";
+	  }
 	  if(isset($this->limit)){
-	    $query = "SELECT ". $this->fields ." FROM ". $this->tables ." LIMIT ". $this->limit ."";
-	  }
-	  
-	  if(isset($this->limit) && isset($this->orderby) ){
-	    $query = "SELECT ". $this->fields ." FROM ". $this->tables ." ORDER BY ". $this->orderby ." LIMIT ". $this->limit ."";
-	  }
-	  
-	  if(isset($this->limit) && isset($this->condition)){
-	    $query = "SELECT ". $this->fields ." FROM ". $this->tables . " WHERE ". $this->condition ." LIMIT ". $this->limit ."";
-	  }
-	  
-	  if(isset($this->condition) && isset($this->orderby) ){
-	    $query = "SELECT ". $this->fields ." FROM ". $this->tables . " WHERE ". $this->condition ." ORDER BY ". $this->orderby ."";
-	  }
-	  
-	  if(isset($this->condition) && isset($this->orderby) && isset($this->limit) ){
-	    $query = "SELECT ". $this->fields ." FROM ". $this->tables . " WHERE ". $this->condition ." ORDER BY ". $this->orderby ." LIMIT ". $this->limit ."";
+	    $query = $query."LIMIT ". $this->limit ."";
 	  }
 	  
 	  if($query = mysql_query($query)) {
@@ -108,6 +103,8 @@ class dbColection {
 		unset($this->fields);
 		unset($this->limit);
 		unset($this->orderby);
+		unset($this->groupby);
+		unset($this->having);
 	    return $query;
 	  } else {
 	    unset($this->tables);
@@ -115,14 +112,13 @@ class dbColection {
 		unset($this->fields);
 		unset($this->limit);
 		unset($this->orderby);
+		unset($this->groupby);
+		unset($this->having);
 	    return 0;
 	  }
-	  
 	} else {
 	  return 0;
 	}
-	
-	
   }
 
   /**
@@ -132,7 +128,6 @@ class dbColection {
     if(isset($this->tables) && isset($this->condition)){
 	  $query = "DELETE FROM ". $this->tables ." WHERE " . $this->condition ."";
 	  if(mysql_query($query)) {
-	    
 	    unset($this->tables);
 		unset($this->condition);
 	    return true;
@@ -145,7 +140,7 @@ class dbColection {
       return false;
 	}
   }
-  
+
   /**
   * Implements exeInsert().
   */
@@ -195,7 +190,7 @@ class dbColection {
       return 0;
 	}
   }
-  
+
   /**
   * Implements setFunctions().
   */
@@ -216,6 +211,12 @@ class dbColection {
   }
   public function setValues($n){
     $this->values = $n;
+  }
+  public function setGroupBy($n){
+    $this->groupby = $n;
+  }
+  public function setHaving($n){
+    $this->having = $n;
   }
 
   //Crea la conexion con la base de datos
