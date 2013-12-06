@@ -39,7 +39,11 @@
 *     devuelve 0 en caso de error y 1 en caso de exito
 * - close(): Cierra la conexion con la base de datos.
 *
-* Version: 1.0
+* Requisitos:
+* - PHP: 5.x
+* - MySQL: 4.x
+*
+* Version: 2.x
 */
 
 class dbColection {
@@ -98,7 +102,7 @@ class dbColection {
 	    $query = $query."LIMIT ". $this->limit ."";
 	  }
 
-	  if($query = mysql_query($query)) {
+	  if($query = mysqli_query($this->conect,$query)) {
 	    unset($this->tables);
 		unset($this->condition);
 		unset($this->fields);
@@ -128,7 +132,7 @@ class dbColection {
   public function exeDelete(){
     if(isset($this->tables) && isset($this->condition)){
 	  $query = "DELETE FROM ". $this->tables ." WHERE " . $this->condition ."";
-	  if(mysql_query($query)) {
+	  if(mysqli_query($this->conect,$query)) {
 	    unset($this->tables);
 		unset($this->condition);
 	    return true;
@@ -154,7 +158,7 @@ class dbColection {
 	    $query = "INSERT INTO " . $this->tables ." VALUES " . $this->values ."";
 	  }
 
-	  if(mysql_query($query)) {
+	  if(mysqli_query($this->conect,$query)) {
 	    unset($this->tables);
 		unset($this->values);
 		unset($this->fields);
@@ -176,7 +180,7 @@ class dbColection {
   public function exeUpdate(){
     if(isset($this->tables) && isset($this->condition) && isset($this->fields)){
 	  $query = "UPDATE " . $this->tables . " SET ". $this->fields ." WHERE " . $this->condition ."";
-	  if(mysql_query($query)) {
+	  if(mysqli_query($this->conect,$query)) {
 	    unset($this->tables);
 		unset($this->condition);
 		unset($this->fields);
@@ -222,16 +226,15 @@ class dbColection {
 
   //Crea la conexion con la base de datos
   private function open(){
-    $this->conect = mysql_connect($this->host, $this->user, $this->pass);
-    if(!$this->conect) {
-      die('Could not connect: ' . mysql_error());
+    $this->conect = mysqli_connect($this->host,$this->user,$this->pass,$this->db) or die("Error " . mysqli_error($this->conect));
+    if(mysqli_connect_errno($this->conect)) {
+      die('No se puede conectar: ' . mysqli_connect_error());
     }
-    mysql_select_db($this->db, $this->conect);
   }
 
   //Cierra la conexion con la base de datos
   public function close(){
-    mysql_close($this->conect);
+    mysqli_close($this->conect);
   }
 }
 
