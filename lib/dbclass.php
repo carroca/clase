@@ -39,6 +39,7 @@
 *     devuelve 0 en caso de error y 1 en caso de exito
 * - close(): Cierra la conexion con la base de datos.
 *
+* Version: 1.0
 */
 
 class dbColection {
@@ -96,7 +97,7 @@ class dbColection {
 	  if(isset($this->limit)){
 	    $query = $query."LIMIT ". $this->limit ."";
 	  }
-	  
+
 	  if($query = mysql_query($query)) {
 	    unset($this->tables);
 		unset($this->condition);
@@ -168,7 +169,7 @@ class dbColection {
 	  return 0;
 	}
   }
-  
+
   /**
   * Implements exeUpdate().
   */
