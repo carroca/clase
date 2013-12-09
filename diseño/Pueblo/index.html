@@ -1,0 +1,151 @@
+<html>
+<head>
+  <title>Pueblo Minecraft</title>
+  
+  <script type="text/javascript" src="js/jquery.min.js"></script>
+  <script type="text/javascript" src="js/jquery.cycle.all.js"></script>
+  <link rel="stylesheet" type="text/css" href="css/style.css" />
+  <link rel="stylesheet" type="text/css" href="css/inicio.css" />
+
+</head>
+<body>
+  <header>
+    <div id="sitename">
+      <h1>Galegolas</h1>
+    </div>
+
+	<div id="subname">
+      <h2>El pueblo de los elfos y los gallegos</h2>
+    </div>
+  </header>
+  
+  <div class="clearfix"></div>
+  
+  <nav class="menu">
+    <ul>
+      <li><a href="index.html">Inicio</a></li>
+	  <li><a>Lugares de interes</a>
+        <ul>
+          <li><a href="faro.html">Faro</a></li>
+	      <li><a href="puerto.html">Puerto</a></li>
+	      <li><a href="muralla.html">Muralla</a></li>
+        </ul>
+      </li>
+	  <li><a href="historia.html">Historia</a></li>
+	  <li><a href="ayuntamiento.html">Ayuntamiento</a></li>
+	  <li><a href="contacto.html">Contacto</a>
+      </li>
+    </ul>
+  </nav>
+
+  <div class="clearfix"></div>
+
+  <div class="slideshow">
+    <img src="img/slide/img1.jpg" width="960" height="260">
+	<img src="img/slide/img2.jpg" width="960" height="260">
+	<img src="img/slide/img3.jpg" width="960" height="260">
+	<img src="img/slide/img4.jpg" width="960" height="260">
+	<img src="img/slide/img5.jpg" width="960" height="260">
+  </div>
+  
+  <div class="clearfix"></div>
+  
+  <div class="middle-wrapper">
+
+    <aside>
+      <div class="sidebar-column">
+		<h3>Titulo 1</h3>
+		<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse in metus quis neque congue 
+            malesuada nec eu dui. Nullam tincidunt euismod tincidunt. Aliquam venenatis enim in ligula tempus, non 
+            vehicula diam imperdiet. Morbi velit orci, adipiscing non elementum vitae, congue vitae elit.</p>
+	    
+	  </div>
+	  <div class="sidebar-column">
+		<h3>Titulo 2</h3>
+		<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse in metus quis neque congue 
+            malesuada nec eu dui. Nullam tincidunt euismod tincidunt. Aliquam venenatis enim in ligula tempus, non 
+            vehicula diam imperdiet. Morbi velit orci, adipiscing non elementum vitae, congue vitae elit.</p>
+	  </div>
+    </aside>
+
+    <content>
+	  <article>
+	     <!-- Zona de las imagenes -->
+		 <div class="novedades"> 
+	     <table >
+		 
+		   <tr>
+		     <td>
+			   <a href="puerto.html"><img src="img/peque/img1.jpg" width="185" height="113"></a><br><span>Puerto</span>
+			 </td>
+			 <td>
+			   <a href=""><img src="img/peque/img1.jpg" width="185" height="113"></a><br><span>El faro</span>
+			 </td>
+			 <td>
+			   <a href=""><img src="img/peque/img1.jpg" width="185" height="113"></a><br><span>La muralla</span>
+			 </td>
+		   </tr>
+		   
+		   <tr> 
+			 <td>
+			   <a href=""><img src="img/peque/img1.jpg" width="185" height="113"></a><br><span>Ayuntamiento</span>
+			 </td>
+			 <td>
+			   <a href=""><img src="img/peque/img1.jpg" width="185" height="113"></a><br><span>Ayuntamiento</span>
+			 </td>
+			 <td>
+			   <a href=""><img src="img/peque/img1.jpg" width="185" height="113"></a><br><span>Ayuntamiento</span>
+			 </td>
+		   </tr>
+		   
+		 </table>
+		 </div>
+	  </article>
+
+    </content>
+
+  </div>
+  
+  <div class="clearfix"></div>
+  
+  <footer>
+    <div id="contacto">
+	  <p>Telefono: 666 666 666</p>
+	  <p>Email: sdfasdf@fasdlfnsad.com</p>
+	</div>
+	<div id="copyright">
+	  <p>&copy; Copyleft 2013</p>
+	</div>
+  </footer>
+
+  <script>
+    // Hay que recordar la importancia de comenzar
+    // a ejecutar javascript cuando termine de cargar
+    // la página para evitar inconscistencias.
+    $(document).ready(function() {
+      var menu = $('nav');
+      var contenedor = $('menu');
+      var menu_offset = menu.offset();
+      // Cada vez que se haga scroll en la página
+      // haremos un chequeo del estado del menú
+      // y lo vamos a alternar entre 'fixed' y 'static'.
+      $(window).on('scroll', function() {
+        if($(window).scrollTop() > menu_offset.top) {
+          menu.addClass('menu-fijo');
+        } else {
+          menu.removeClass('menu-fijo');
+        }
+      });
+    });
+  </script>
+
+  <script type="text/javascript" >
+    $(document).ready(function() {
+      $('.slideshow').cycle({
+        fx: 'fade',
+        timeout: '2000'
+      });
+    });
+  </script>
+</body>
+</html>

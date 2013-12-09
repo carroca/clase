@@ -1,0 +1,43 @@
+/*Definicion de los colores que se van a usar*/
+
+@font-face {
+  font-family: "ubuntu";
+  src: url("../font/Ubuntu-L.ttf");
+}
+
+$base: #000;
+$background: #fff;
+$textColor: #f1f1f1;
+$linkColor: #ff8285;
+
+$fuente: ubuntu;
+
+/* body principal */
+
+body {
+  color: $base;
+  background: $background;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  outline: 0;
+  font: $fuente;
+}
+
+h1, h2, h3, h4, h5, h6, p {
+  margin-top: 0;
+  padding-right: 15px;
+  padding-left: 15px;
+}
+a {
+  color: $linkColor;
+  font: $fuente;
+  
+  img {
+    border: none;
+  }
+}
+
+header, content, article {
+  
+}

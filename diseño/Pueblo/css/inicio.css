@@ -1,0 +1,15 @@
+.novedades img {
+  border-top-left-radius: 15px;
+  border-top-right-radius: 15px;
+}
+
+.novedades span {
+  border-bottom-left-radius: 15px;
+  border-bottom-right-radius: 15px;
+  text-align: center;
+}
+.novedades td {
+  background: #333;
+  border-radius: 15px;
+  margin-left: 5px;
+}

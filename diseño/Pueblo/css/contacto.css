@@ -1,0 +1,56 @@
+span,
+label, 
+h1, 
+button {
+  color: #fff;
+}
+
+.formulario {
+  border: solid 2px #ffffff;
+  margin: 30;
+  width: 400px;
+  padding: 14px;
+}
+
+.formulario h3 {
+  font-size: 24px;
+  font-weight: bold;
+  text-align: center;
+}
+
+.formulario label {
+  display: block;
+  font-weight: bold;
+  text-align: right;
+  width: 140px;
+  float: left;
+}
+
+.formulario span {
+  color: #fff;
+  display: block;
+  font-size: 11px;
+  font-weight: normal;
+  text-align: right;
+  width: 140px;
+}
+
+.formulario input {
+  float: left;
+  font-size: 12px;
+  padding: 4px 2px;
+  border: solid 1px #708090;
+  width: 200px;
+  margin: 2px 0 20px 10px;
+}
+
+.formulario button {
+  clear: both;
+  margin: 0 auto;
+  width: 100px;
+  height: 31px;
+  background: #222222;
+  text-align: auto;
+  line-height: 31px;
+  font-weight: bold;
+}
