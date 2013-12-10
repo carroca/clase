@@ -1,0 +1,21 @@
+/* Contenido */
+$background: #000;
+
+.content {
+  box-shadow: 0 0 5px 1px #A8A8A8;
+  margin: 20px auto 0;
+  position: relative;
+  width: 980px;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+article {
+  margin: {
+  	left: 20px;
+  	right: 20px;
+  }
+  background: lighten($background, 95%);
+  box-shadow: 0px 0px 3px lighten($background, 30%), 0px 0px 0px 8px lighten($background, 100%) inset;
+}

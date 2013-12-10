@@ -1,0 +1,19 @@
+/*Columna lateral*/
+
+.lateral {
+  background: #0ff;
+  width: 220px;
+  display: block;
+  position:fixed;
+  top: 80px;
+  right: 50px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.social {
+  position: fixed;
+  top: 20%;
+  width: 40px;
+  z-index: 10000;
+}
