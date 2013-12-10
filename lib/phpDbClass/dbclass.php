@@ -110,7 +110,10 @@ class dbColection {
 		unset($this->orderby);
 		unset($this->groupby);
 		unset($this->having);
-	    return $query;
+		while($row = mysqli_fetch_array($query, MYSQLI_ASSOC)){
+          $result[] = $row;
+        }
+	    return $result;
 	  } else {
 	    unset($this->tables);
 		unset($this->condition);

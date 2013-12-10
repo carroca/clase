@@ -36,7 +36,7 @@
   
   /*$db->setTables("usuarios");
   $db->setCondition("usuario = 'mikel'");
-  $db->setFields("nombre = 'mikeltxo'");
+  $db->setFields("nombre = 'Mikel2'");
   
   if($db->exeUpdate()){
     echo "Update realizado";
@@ -56,7 +56,8 @@
   
   if($row = $db->exeSelect()) {
     echo "Se ejecuta la consulta";
-    while($fila = mysql_fetch_array($row)){
+    foreach($row AS $fila){
+	  echo "<br>";
       echo $fila['id'];
 	  echo "<br>";
 	  echo $fila['Nombre'];
