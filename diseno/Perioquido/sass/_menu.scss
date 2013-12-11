@@ -10,6 +10,8 @@ nav {
   background: none repeat scroll 0 0 $background;
   font-weight: 400;
   text-transform: uppercase;
+  position: fixed;
+  z-index: 10000;
 
   ul{
     list-style: none;

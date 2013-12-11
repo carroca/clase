@@ -5,11 +5,15 @@ $background: #987;
 header {
 
   width: 960px;
-  height: 160px;
+  height: 140px;
   display: block;
-  margin-left: auto;
-  margin-right: auto;
-
+  margin: {
+    left: auto;
+    right: auto;
+  }
+  padding: {
+  	top: 20px;
+  }
 }
 
 #title {

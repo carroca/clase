@@ -16,7 +16,7 @@ $fuente: ubuntu;
 
 body {
   color: $base;
-  background: $background;
+  background: $background url("http://www.teamplayers.es/wp-content/themes/awtheme/img/textures/mix_light/light_noise_diagonal_darker.png");
   margin: 0;
   padding: 0;
   border: 0;
@@ -30,12 +30,7 @@ body {
 //  padding-left: 15px;
 //}
 
-h4 {
-    border: {
-      bottom: solid 3px #E64946;
-    }
-    text-align: justify;
-}
+
 
 
 .clearfix {
