@@ -37,6 +37,10 @@
 *     devuelve 0 en caso de error y 1 en caso de exito
 * - exeUpdate(): Ejecuta un update en una tabla, tables, condition y fields son obligatorios,
 *     devuelve 0 en caso de error y 1 en caso de exito
+* - exeQuery(String, String): Ejecuta un codigo sql que se le pase por parametro,
+*     El segundo string es opcional, 0 indica un SELECT, un 1 indica INSERT, DELETE o UPDATE,
+*     Por defecto tiene el valor 0.
+*     devuelve 0 en caso de error y en caso de exito un array con el resultado
 * - close(): Cierra la conexion con la base de datos.
 *
 * Requisitos:
@@ -46,7 +50,7 @@
 * Version: 2.x
 */
 
-class dbColection {
+class Database {
 
   //Atributos para conectarse a la base de datos
   private $host;
@@ -71,10 +75,10 @@ class dbColection {
   public function __construct() {
 
     include_once('./config.php');
-    $this->host = HOST;
-	$this->user = USER;
-	$this->pass = PASS;
-	$this->db = DB;
+    $this->host = $config['host'];
+	$this->user = $config['username'];
+	$this->pass = $config['password'];
+	$this->db = $config['database'];
 	$this->open();
   }
 
@@ -128,6 +132,32 @@ class dbColection {
 	  return 0;
 	}
   }
+  
+  /**
+  * Implements exeQuery().
+  */
+  public function exeQuery($query, $type = "0"){
+    switch ($type) {
+      default:
+        if($query = mysqli_query($this->conect,$query)) {
+          while($row = mysqli_fetch_array($query, MYSQLI_ASSOC)){
+            $result[] = $row;
+          }
+	      return $result;
+	    } else {
+	      return 0;
+	    }
+        break;
+      case "1":
+        if(mysqli_query($this->conect,$query)) {
+	      return true;
+	    } else {
+	      return false;
+	    }
+        break;
+    }
+  }
+
 
   /**
   * Implements exeDelete().
@@ -202,7 +232,7 @@ class dbColection {
   /**
   * Implements setFunctions().
   */
-  public function setFields($n){
+  public function setFields($n = "*"){
     $this->fields = $n;
   }
   public function setTables($n){

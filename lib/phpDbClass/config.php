@@ -1,6 +1,7 @@
 <?php
-  define("HOST", "localhost");
-  define("USER", "root");
-  define("PASS", "");
-  define("DB", "chat");
-?>
+$config = array(
+  'database' => 'databasename',
+  'username' => 'username',
+  'password' => 'password',
+  'host' => 'localhost',
+);
