@@ -1,4 +1,5 @@
 $background: #2A2A2A;
+$casilla: #ffffff;
 
 footer {
   background: $background;
@@ -11,6 +12,17 @@ footer {
   margin-top: 10px;
 }
 
+.ultimas-noticias {
+  @for $i from 1 through 4 {
+    .ultimas-#{$i} { 
+      background: $casilla;
+      width: 30px;
+      height: 30px;
+
+    }
+    $casilla: darken($casilla, 15%);
+  }
+}
 #copyright {
   float: right;
   margin-right: 30px;
